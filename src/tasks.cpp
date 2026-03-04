@@ -5,12 +5,8 @@
 #include <Arduino.h>
 #define numOfPrio3Sensors 2
 
-enum SensorState {
-    READING_DHT,
-    READING_WATER
-};
-
-SensorData currentStatus = {
+// Definition av sensor-datan (i extern variabel)
+SensorData sensorStatus = {
     .reedSensor1 = false,
     .reedSensor2 = false,
     .motionDetect = false,
@@ -20,6 +16,7 @@ SensorData currentStatus = {
     .indoorHumidity = 0.0,
     .waterLeak = false
 };
+
 
 void readPrio3Sensors(){
     static int currentSensor = READING_DHT; // static -> sätts endast EN gång (init)
@@ -31,9 +28,9 @@ void readPrio3Sensors(){
 
         // -- DEBUG --
         Serial.print("Temp: ");
-        Serial.print(currentStatus.indoorTemp, 1); // 1 decimal
+        Serial.print(sensorStatus.indoorTemp, 1); // 1 decimal
         Serial.print(" C | Fukt: ");
-        Serial.print(currentStatus.indoorHumidity, 1);
+        Serial.print(sensorStatus.indoorHumidity, 1);
         Serial.println(" %");
         // -- DEBUG --
 
@@ -43,7 +40,7 @@ void readPrio3Sensors(){
         
     case READING_WATER:
         //läs water leak
-        Serial.println("Water-Leak\n");
+        Serial.println("Checking 'Water-Leak'..\n");
         currentSensor = READING_DHT;
         break;
     }

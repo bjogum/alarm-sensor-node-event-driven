@@ -17,7 +17,7 @@ bool getDHTData() {
         return false; 
     }
 
-    currentStatus.indoorTemp = t;
-    currentStatus.indoorHumidity = h;
+    sensorStatus.indoorTemp = t;
+    sensorStatus.indoorHumidity = h;
     return true;
 }
