@@ -14,7 +14,7 @@ SensorData sensorStatus = {
     .fireTemp = 0.0,
     .indoorTemp = 0.0,
     .indoorHumidity = 0.0,
-    .waterLeak = false
+    .waterLeak = false,
 };
 
 
