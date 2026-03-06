@@ -4,6 +4,8 @@
 #include "tasks.h"
 #include "alarm.h"
 #include "wifi_manager.h"
+#define WAKE_UP_TIME 60
+
 
 // enum för resp. PRIO-klass.
 enum TaskType {sensorPrio1, sensorPrio2, sensorPrio3, serviceCheckAlarm, serviceBLE, serviceWiFi, serviceMQTT};
@@ -75,7 +77,12 @@ void taskScheduler(){
       taskList[i].lastRun = sysTime;
     }
   };
-  
-
 };
 
+void startingSystem(){
+    if (node.runStatus == WAKING_UP){
+      if (millis() >= WAKE_UP_TIME){
+        node.runStatus = RUNNING;
+      }
+    }
+}

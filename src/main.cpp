@@ -3,6 +3,7 @@
 #include "sensor_dht11.h"
 #include "wifi_manager.h"
 #include "tasks.h"
+#include "alarm.h"
 #include <ArduinoBLE.h>
 
 void setup() {
@@ -12,6 +13,10 @@ void setup() {
   // attachInterrupt --- HW interrupt: bryter pågående (lägre prioriterad) process omedelbart
 }
 
-void loop() {
-  taskScheduler(); 
+void loop() { 
+  startingSystem();
+  
+  if (node.runStatus == RUNNING){
+    taskScheduler(); 
+  }
 }

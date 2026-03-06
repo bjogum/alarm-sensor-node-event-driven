@@ -3,5 +3,6 @@
 
 // skeduleraren
 void taskScheduler();
+void startingSystem();
 
 #endif

@@ -3,13 +3,19 @@
 
 void checkAlarmStatus();
 
-// enum: Definierar systemets "state"
+typedef enum
+{
+    WAKING_UP,
+    RUNNING
+}RunStatus;
+
+// enum: Definierar larm "mode"
 typedef enum
 {
     STATE_DISARMED,
     STATE_ARMED_HOME,
     STATE_ARMED_AWAY
-}SystemState;
+}AlarmMode;
 
 // Struct för all sensor data som samlas in
 typedef struct {
@@ -42,9 +48,10 @@ typedef struct
 // struct: packa SAMTLIG data (extern)
 typedef struct
 {
-    SystemState state;          // Alarm On-Away / On-Home / Off
+    RunStatus runStatus;       // WAKING_UP (ca 60 s) | RUNNING
+    AlarmMode alarmMode;       // Disarmed | Armed home | Armed away
+    AlarmReason alarmStatus;   // intrusionAlarm | fireAlarm | waterLeak | systemFailure
     SensorData sensors;         // all sensordata
-    AlarmReason alarmStatus;    // intrusionAlarm? fireAlarm? waterLeak? systemFailure? undefined.
 }System;
 
 // deklarera variabel för systemet

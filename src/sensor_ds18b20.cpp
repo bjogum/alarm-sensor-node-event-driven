@@ -3,6 +3,8 @@
 #include <DallasTemperature.h>
 #include "alarm.h"
 
+#define ALARMING_TEMP 60
+
 // Definiera pin - (DI:4)
 const int ONE_WIRE_BUS = 4;
 
@@ -28,6 +30,10 @@ void getDS18B20data(){
         // lagrar temperatur från sensor "0" på bussen
         node.sensors.fireTemp = ds18b20.getTempCByIndex(0);
         printf("%.1f",node.sensors.fireTemp);
+
+        if (node.sensors.fireTemp >= ALARMING_TEMP){
+            node.alarmStatus.fireAlarm = true;
+        }
     }
 
 }

@@ -5,7 +5,14 @@
 
 //definierar node-strukten (samt deklarera nässlade struktar)
 System node = {
-  .state = STATE_DISARMED,  // ska initieras som "STATE_DISARMED".
+  .runStatus = WAKING_UP,
+  .alarmMode = STATE_DISARMED,  // ska initieras som "STATE_DISARMED".
+  .alarmStatus = {
+    .intrusionAlarm = false,
+    .fireAlarm = false,
+    .waterLeak = false,
+    .systemFailure = false
+  },
   .sensors = {
     .reedSensor1 = false,
     .reedSensor2 = false,
@@ -15,18 +22,12 @@ System node = {
     .indoorTemp = 0.0,
     .indoorHumidity = 0.0,
     .waterLeak = false,
-  },
-  .alarmStatus = {
-    .intrusionAlarm = false,
-    .fireAlarm = false,
-    .waterLeak = false,
-    .systemFailure = false
   }
 };
 
 
 void checkAlarmStatus(){ 
-  switch (node.state)
+  switch (node.alarmMode)
   {
   case STATE_ARMED_AWAY:
       if (node.sensors.smokeSensor == true || node.sensors.fireTemp == true){
@@ -49,21 +50,26 @@ void checkAlarmStatus(){
 
   case STATE_ARMED_HOME:
             if (node.sensors.smokeSensor == true || node.sensors.fireTemp == true){
+              node.alarmStatus.fireAlarm == true;
         printf("\n--FIRE DETECTED--\n");
       }
       if (node.sensors.reedSensor1 == true || node.sensors.reedSensor2 == true){
+        node.alarmStatus.intrusionAlarm == true;
         printf("\n--DOOR/WINDOW OPEND!--\n");
       }
       if (node.sensors.waterLeak == true){
+        node.alarmStatus.waterLeak == true;
          printf("\n--WATER-LEAK DETECTED--\n");
       }
   break;
 
   case STATE_DISARMED:
       if (node.sensors.smokeSensor == true || node.sensors.fireTemp == true){
+        node.alarmStatus.fireAlarm == true;
         printf("\n--FIRE DETECTED--\n");
       }
       if (node.sensors.waterLeak == true){
+        node.alarmStatus.waterLeak == true;
          printf("\n--WATER-LEAK DETECTED--\n");
       }
       if (node.sensors.indoorHumidity >= 70){  // bara för test
