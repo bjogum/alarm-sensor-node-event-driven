@@ -17,16 +17,16 @@ void manageWiFi(){
     if (!wifiIsConnected()){
         if (node.connectionStatus.wifiIsActive){
             node.connectionStatus.wifiIsActive = false;
-        printf("\n\n..WiFi disconneced..");
-        printf("\n\n");
+        Serial.println("\n\n..WiFi disconneced..");
+        Serial.println("");
         }
 
     } else {
         if (!node.connectionStatus.wifiIsActive){
             node.connectionStatus.wifiIsActive = true;
-            printf("\n\nConneced to WiFi: ");
-            printf(WIFI_SSID);
-            printf("\n\n");
+            Serial.print("\n\nConneced to WiFi: ");
+            Serial.println(WIFI_SSID);
+            Serial.println("");
         }
     }
 }

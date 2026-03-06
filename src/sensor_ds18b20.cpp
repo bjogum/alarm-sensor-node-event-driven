@@ -3,7 +3,7 @@
 #include <DallasTemperature.h>
 #include "alarm.h"
 
-#define DS18B20_READ_FREQUENCY_MS 550 // behöver tid att uppdatera data
+#define DS18B20_READ_FREQUENCY_MS 750 // behöver tid att uppdatera data
 
 unsigned long DS18B20_ReqiuestTime;
 bool DS18B20_waitingForAnsware = false;
@@ -34,12 +34,12 @@ void getDS18B20data(){
         if (node.sysTime - DS18B20_ReqiuestTime >= DS18B20_READ_FREQUENCY_MS){ // har tillräckligt lång tid gått?
 
             if (ds18b20.getTempCByIndex(0) == -127){
-                printf("DS18B20: No data..");
+                Serial.println("DS18B20: No data..");
             } else {
                 // lagrar temperatur från sensor "0" på bussen
                 node.sensors.fireTemp = ds18b20.getTempCByIndex(0);
-                printf("DS18B20: ");
-                printf("%.1f",node.sensors.fireTemp);
+                Serial.print("DS18B20: ");
+                Serial.println(node.sensors.fireTemp, 1); 
             }
         
             DS18B20_waitingForAnsware = false; // nu väntar vi inte längre.. sätt till false

@@ -38,54 +38,54 @@ void checkAlarmStatus(){
   case STATE_ARMED_AWAY:
     if (node.sensors.smokeSensor == true || (node.sensors.fireTemp >= DS18B20_ALARMING_TEMP)){
       node.alarmStatus.fireAlarm == true;
-      printf("\n--FIRE DETECTED--\n");
+      Serial.println("\n--FIRE DETECTED--\n");
     } else {
       node.alarmStatus.fireAlarm = false;
     }
     if (node.sensors.motionDetect == true){
       node.alarmStatus.intrusionAlarm == true;
-      printf("\n--MOTION DETECTED--\n");
+      Serial.println("\n--MOTION DETECTED--\n");
     }
     if (node.sensors.reedSensor1 == true || node.sensors.reedSensor2 == true){
       node.alarmStatus.intrusionAlarm == true;
-      printf("\n--DOOR/WINDOW OPEND!--\n");
+      Serial.println("\n--DOOR/WINDOW OPEND!--\n");
     }
     if (node.sensors.waterLeak == true){
       node.alarmStatus.waterLeak == true;
-       printf("\n--WATER-LEAK DETECTED--\n");
+       Serial.println("\n--WATER-LEAK DETECTED--\n");
     }
   break;
 
   case STATE_ARMED_HOME:
     if (node.sensors.smokeSensor == true || (node.sensors.fireTemp >= DS18B20_ALARMING_TEMP)){
       node.alarmStatus.fireAlarm == true;
-      printf("\n--FIRE DETECTED--\n");
+      Serial.println("\n--FIRE DETECTED--\n");
     } else {
       node.alarmStatus.fireAlarm = false;
     }
     if (node.sensors.reedSensor1 == true || node.sensors.reedSensor2 == true){
       node.alarmStatus.intrusionAlarm == true;
-      printf("\n--DOOR/WINDOW OPEND!--\n");
+      Serial.println("\n--DOOR/WINDOW OPEND!--\n");
     }
     if (node.sensors.waterLeak == true){
       node.alarmStatus.waterLeak == true;
-       printf("\n--WATER-LEAK DETECTED--\n");
+       Serial.println("\n--WATER-LEAK DETECTED--\n");
     }
   break;
 
   case STATE_DISARMED:
     if (node.sensors.smokeSensor == true || (node.sensors.fireTemp >= DS18B20_ALARMING_TEMP)){
       node.alarmStatus.fireAlarm == true;
-      printf("\n--FIRE DETECTED--\n");
+      Serial.println("\n--FIRE DETECTED--\n");
       } else {
         node.alarmStatus.fireAlarm = false;
       }
       if (node.sensors.waterLeak == true){
         node.alarmStatus.waterLeak == true;
-         printf("\n--WATER-LEAK DETECTED--\n");
+         Serial.println("\n--WATER-LEAK DETECTED--\n");
       }
       if (node.sensors.indoorHumidity >= 70){  // bara för test
-      printf("\n--HIGH HUMIDITY DETECTED--\n");  // bara för test
+      Serial.println("\n--HIGH HUMIDITY DETECTED--\n");  // bara för test
       }
   break;
 

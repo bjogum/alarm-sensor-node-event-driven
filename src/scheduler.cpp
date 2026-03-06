@@ -47,13 +47,13 @@ void taskScheduler(){
         break;
 
       case sensorPrio2:
-        printf("\n<-----PRIO2_READ----->\n");
+        Serial.println("\n<-----PRIO2_READ----->\n");
         readPrio2Sensors();  
         // triggar någon sensor -> sätts extern var. till True
         break;
 
       case sensorPrio3:
-        printf("\n<-----PRIO3_READ----->\n");
+        Serial.println("\n<-----PRIO3_READ----->\n");
         readPrio3Sensors();
         
         break;
@@ -85,7 +85,7 @@ void startingSystem(){
     if (node.runStatus == WAKING_UP){
       if (millis() >= WAKE_UP_SYSTEM_MS){
         node.runStatus = RUNNING;
-        printf("\n<<< SYSTEM READY >>>\n\n");
+        Serial.println("\n<<< SYSTEM READY >>>\n\n");
       }
     }
 }
