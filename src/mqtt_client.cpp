@@ -6,6 +6,7 @@
 
 #define MQTT_BROKER "192.168.1.101"
 #define MQTT_PORT 1883
+#define MQTT_SEND_TIME_INTERVALL 2000 // skicka MQTT varannan sekund
 
 WiFiClient wifiClient;
 MqttClient mqttClient(wifiClient);
@@ -55,7 +56,7 @@ void sendMQTT(){
     // .poll() : håller igång anslutningen (ping) - och skickar/tar emot MQTT
     mqttClient.poll();
 
-    if (node.sysTime - MQTTLastSendTimer >= 2000){
+    if (node.sysTime - MQTTLastSendTimer >= MQTT_SEND_TIME_INTERVALL){
         MQTTLastSendTimer = node.sysTime;
         mqttClient.beginMessage(indoorTempTopic);
         mqttClient.print(node.sensors.indoorTemp);
