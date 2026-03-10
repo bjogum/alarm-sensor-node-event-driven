@@ -1,6 +1,8 @@
 ## Alarm sensor-node, with Task scheduler → ![](https://img.shields.io/badge/status-under%20development-8A2BE2)
 #### Overview
-This project handles all sensor data for an alarm system, utilizing an Arduino Uno R4 WiFi with a built-in Task Scheduler. The project is a modular component of a larger IoT system (Smart Hub) consisting of multiple nodes..
+This is a modular component of a larger IoT system (Smart Hub) consisting of multiple nodes.
+
+This repo handles all sensor data for an alarm system, utilizing an Arduino Uno R4 WiFi with a custom task scheduler. All sensor data is sent to neighboring nodes via Wi-Fi and BLE, using the MQTT protocol.
 
 
 ...more info is coming
