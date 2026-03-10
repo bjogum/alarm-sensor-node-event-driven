@@ -23,6 +23,7 @@ const uint32_t LED_OFF_FRAME[] = {
 
 void initMatrix(){
     matrix.begin();
+    // node.matrixReady = true;
 }
 
 void statusLED(){

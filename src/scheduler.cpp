@@ -5,7 +5,8 @@
 #include "alarm.h"
 #include "wifi_manager.h"
 #include "indicateStatus.h"
-#define WAKE_UP_SYSTEM_MS 10000 // maybe 60s ? (MQ2 is slowest..)
+#include "mqtt_client.h"
+#define WAKE_UP_SYSTEM_MS 20000 // maybe 60s ? (MQ2 & MQTT behöver tid..)
 
 
 // enum för resp. PRIO-klass.
@@ -75,6 +76,9 @@ void taskScheduler(){
 
       case serviceMQTT:
         // sub/pub mqtt
+        manageMQTT();
+        sendMQTT();
+        receiveMQTT();
         break;    
 
       }

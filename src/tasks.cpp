@@ -6,9 +6,12 @@
 #include <Arduino.h>
 #include "sensor_ds18b20.h"
 #include "indicateStatus.h"
+#include "wifi_manager.h"
+#include "mqtt_client.h"
 #define numOfPrio3Sensors 2
 
-void initComonents(){
+void initComponents(){
+    initWiFi();
     initDHT();
     initDS18B20();
     initMatrix();

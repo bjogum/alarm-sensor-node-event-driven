@@ -22,6 +22,7 @@ void initDS18B20() {
     // AVAKTIVERA väntetiden (gör den non-blocking)
     ds18b20.setWaitForConversion(false); 
     Serial.println("DS18B20 Initierad");
+    // node.ds18b20Ready = true;
 }
 
 void getDS18B20data(){

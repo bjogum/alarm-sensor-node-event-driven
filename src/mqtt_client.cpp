@@ -1,13 +1,99 @@
 #include "alarm.h"
+#include "mqtt_client.h"
+#include "wifi_manager.h"
+#include <ArduinoMqttClient.h>
+#include <ArduinoJson.h>
+
+#define MQTT_BROKER "192.168.1.101"
+#define MQTT_PORT 1883
+
+WiFiClient wifiClient;
+MqttClient mqttClient(wifiClient);
+
+const char broker[] = MQTT_BROKER;
+int port = MQTT_PORT;
+const char indoorTempTopic[] = "sensor/indoorTemp";
+const char indoorHumidTopic[] = "sensor/indoorHumidity";
+
+bool tryMQTTconnect = false;
+bool MQTTconnected = false;
+unsigned long MQTTConnectTimer = 0;
+unsigned long MQTTLastSendTimer = 0;
+
+// funktionen håller igång MQTT samt skickar/ta emot meddelanden.
+void manageMQTT() {
+    // d) LWT: Maxtid, 10s offline -> ESP ger larm 
+    // skriv testamentet här...
+
+
+    // om det gått 2 sek sen connect & nu conencted, skicka init
+    if ((node.sysTime - MQTTConnectTimer >= 2000) && (!MQTTconnected)){
+        MQTTConnectTimer = node.sysTime;
+
+        if (mqttClient.connect(broker, port)) {
+            tryMQTTconnect = false;
+            MQTTconnected = true;
+
+            initSendMQTT();
+        } else {
+            MQTTconnected = false;
+            Serial.println("<< MQTT : Connect error >> Test in 2 sec");
+        }
+    }
+
+    // .poll() : håller igång anslutningen (ping) - och skickar/tar emot MQTT
+    mqttClient.poll();
+
+}
+
+void initSendMQTT(){
+    // a) skicka all intressant data vid "init" - sensorer, heartbeat, RSSI, ..
+    /*
+    // ----TEST ----> topic + meddelandet, temp.
+    mqttClient.beginMessage(indoorTempTopic);
+    mqttClient.print(node.sensors.indoorTemp);
+    if (mqttClient.endMessage()) {
+        Serial.println("Temp: Sent OK!");
+    }
+    // ----TEST ----> topic + meddelandet, humid.
+    mqttClient.beginMessage(indoorHumidTopic);
+    mqttClient.print(node.sensors.indoorHumidity);
+    if (mqttClient.endMessage()) {
+        Serial.println("Humidity: Sent OK!");
+    }
+
+    // .poll() : håller igång anslutningen (ping) - och skickar/tar emot MQTT
+    mqttClient.poll();
+    */
+    }
 
 // -- avgör om datan behöver publiseras - Beroende på sensorer/status samt state --
-// a) skicka all data vid "init" (även RSSI)
-// b) skicka förändrad data || var 30e sek
-// c) skicka heartbeat var 30e sek (bra trots LWT)
-// d) LWT: Maxtid, 10s offline -> ESP ger larm 
+void sendMQTT(){
+    
+    if (node.sysTime - MQTTLastSendTimer >= 2000){
+        MQTTLastSendTimer = node.sysTime;
+            // ----TEST ----> topic + meddelandet, temp.
+        mqttClient.beginMessage(indoorTempTopic);
+        mqttClient.print(node.sensors.indoorTemp);
+        if (mqttClient.endMessage()) {
+            Serial.println("Temp: Sent OK!");
+        }
+        // ----TEST ----> topic + meddelandet, humid.
+        mqttClient.beginMessage(indoorHumidTopic);
+        mqttClient.print(node.sensors.indoorHumidity);
+        if (mqttClient.endMessage()) {
+            Serial.println("Humidity: Sent OK!");
+        }
+    }
+    // b) skicka förändrad data (enl. u1 & u2)
+        // b01) -> temp/fukt (DHT11) vid skillnader && max en gång varje sek..?                      [alla state]
+        // b02) -> övrigta sensorer -> vid förändring / triggning -- skicka direkt (prio 1 & 2)      [alla larmade state, utan PIR om "home"]
+    
+        // c) skicka heartbeat var 30e sek (bra trots LWT)
+}
+
+void receiveMQTT(){
 
 
-    // Om: SKICKA datan (pub)
-
-
-// TA EMOT data (sub) från ESP -> "state"
+    // TA EMOT data (sub) från ESP -> "state"
+}
