@@ -11,8 +11,7 @@ This repo handles all sensor data for an alarm system, utilizing an Arduino Uno 
 
 1) Update your WIFI: SSID + Password → plattformio.ini
 2) Update your Broker/Zero IP adress → mqtt_client.cpp
-3) WiFi must be working to start-up right now..
-4) Startup time ~20s → when system is up and running : red blink on the led matrix
+3) Startup time ~20s → when system is up and running : red blink on the led matrix
 
 #### Hardware
 * MCU: Arduino Uno R4 WiFi
