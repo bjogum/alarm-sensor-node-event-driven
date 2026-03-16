@@ -12,15 +12,15 @@ MqttClient mqttClient(wifiClient);
 IPAddress ipReturn; // Needed to ping broker before trying MQTT-connect
 
 int willQos                      = 1;
-int port                         = 1883;
+int port                         = 8883;
 const char broker[]              = "192.168.1.100";
 const char indoorTempTopic[]     = "sensor/indoorTemp";
 const char indoorHumidTopic[]    = "sensor/indoorHumidity";
 const char waterleakTopic[]      = "sensor/waterleak";
 const char fireTopic[]           = "sensor/fire";
 const char systemFailure[]       = "systemFailure";
-const char willTopic[]            = "Sensor-node";
-const char willPayload[]          = "OFFLINE";
+const char willTopic[]           = "sensor-node-status";
+const char willPayload[]         = "OFFLINE";
 bool willRetain                  = true;
 
 //bool tryMQTTconnect = false;

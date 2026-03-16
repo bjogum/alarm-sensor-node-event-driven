@@ -16,13 +16,13 @@ This repo handles all sensor data for an alarm system, utilizing an Arduino Uno 
 
 * Sensor:
 
-| Sensors       | Detect                        | PIN @ Arduino | Transmits to  | 
-| ------------- |:-----------------------------:|:-------------:| -------------:|
-| DHT11         | Indoor: temp + humidity       | D2 (P104)     | Broker @ MQTT |
-| DS18B20       | Temp, fire  (pull-up needed)  | D5 (P107)     | Broker @ MQTT |
-| MQ2           | Gas, fire                     |  -            | Broker @ MQTT |
-| Rain-sensor   | Water leak                    |  -            | Broker @ MQTT | 
-| PIR           | Motion                        |  -            | ESP32 @ BLE   |
-| Reed          | Open door / window            |  -            | ESP32 @ BLE   |
+| Sensors       | Detect                        | PIN @ Arduino | Transmits to     | Implemented  |
+| ------------- |:-----------------------------:|:-------------:|:----------------:| ------------:|
+| DHT11         | Indoor: temp + humidity       | D2 (P104)     |  Broker @ MQTT   | Yes          |
+| DS18B20       | Temp, fire  (pull-up needed)  | D5 (P107)     | (Broker @ MQTT)  | Yes          |
+| MQ2           | Gas, fire                     |  -            | (Broker @ MQTT)  |              |
+| Rain-sensor   | Water leak                    |  -            | (Broker @ MQTT)  |              |
+| PIR           | Motion                        |  -            | (ESP32 @ BLE)    |              |
+| Reed          | Open door / window            |  -            | (ESP32 @ BLE)    |              |
 
 
