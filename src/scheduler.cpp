@@ -11,7 +11,7 @@
 // 'TaskFunction' blir en definition av funktionspekare.
 typedef int (*TaskFunction)(void);
 
-// struct för resp. TASK, innehållande: [Funktionspekare] - [intervall (ms)] - [senaste körningen (ms)]
+// struct för resp. Task, innehållande: [Funktionspekare] - [intervall (ms)] - [senaste körningen (ms)]
 struct Tasks {
     TaskFunction run;               // pekare till funktion
     const unsigned long intervall;  // hur tätt den tillåts köra
